@@ -4,7 +4,7 @@
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.0.2
+Version:	2.1.1
 Release:	%mkrel 1
 License:	LGPL
 Group:		Graphics
@@ -95,5 +95,3 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %{_includedir}/*h
 %attr(755,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
-
-
