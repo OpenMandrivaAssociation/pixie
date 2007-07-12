@@ -1,10 +1,11 @@
 %define	oname Pixie
 %define major 0
 %define libname %mklibname %{name} %{major}
+%define develname %mklibname %{name} -d
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.1.1
+Version:	2.2.1
 Release:	%mkrel 1
 License:	LGPL
 Group:		Graphics
@@ -14,6 +15,8 @@ BuildRequires:	libfltk-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	mesa-common-devel
+BuildRequires:	flex
+BuildRequires:	bison
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -30,13 +33,14 @@ Group:		System/Libraries
 Shared libraries for Pixie, a RenderMan 
 compiliant renderer.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary:	Pixie development environment
 Group:		Development/C++
-Provides:	lib%{name}-devel
-Provides:	%{name}-devel
+Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname %{name} 0 -d
 
-%description -n %{libname}-devel
+%description -n %{develname}
 Pixie header files.
 
 %prep
@@ -56,7 +60,8 @@ Pixie header files.
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
-%makeinstall_std
+%makeinstall_std docdir=%{_docdir}/%{oname}
+
 mkdir -p %{buildroot}%{_datadir}/Pixie/textures
 cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 
@@ -68,30 +73,30 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
-%defattr(644,root,root,755)
-%doc %{_datadir}/doc/Pixie/*
+%defattr(-,root,root)
+%doc %{_datadir}/doc/%{oname}/*
 %dir %{_libdir}/%{oname}
 %dir %{_libdir}/%{oname}/displays
 %dir %{_libdir}/%{oname}/modules
 %dir %{_datadir}/%{oname}/shaders
 %dir %{_datadir}/%{oname}/textures
 #%dir %{_datadir}/%{oname}/procedurals
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/%{oname}/displays/*.la
-%attr(755,root,root) %{_libdir}/%{oname}/displays/*.so
-%attr(755,root,root) %{_libdir}/%{oname}/modules/*.la
-%attr(755,root,root) %{_libdir}/%{oname}/modules/*.so
+%{_bindir}/*
+%{_libdir}/%{oname}/displays/*.la
+%{_libdir}/%{oname}/displays/*.so
+%{_libdir}/%{oname}/modules/*.la
+%{_libdir}/%{oname}/modules/*.so
 %{_datadir}/%{oname}/shaders/*.sdr
 %{_datadir}/%{oname}/shaders/*.sl
 %{_datadir}/Pixie/textures/*.tif
 %{_mandir}/man1/*.1.bz2
 
 %files -n %{libname}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.%{major}*
+%defattr(-,root,root)
+%{_libdir}/*.so.%{major}*
 
-%files -n %{libname}-devel
-%defattr(644,root,root,755)
+%files -n %{develname}
+%defattr(-,root,root)
 %{_includedir}/*h
-%attr(755,root,root) %{_libdir}/*.la
+%{_libdir}/*.la
 %{_libdir}/*.so
