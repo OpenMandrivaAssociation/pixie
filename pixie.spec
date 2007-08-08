@@ -89,7 +89,7 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %{_datadir}/%{oname}/shaders/*.sdr
 %{_datadir}/%{oname}/shaders/*.sl
 %{_datadir}/Pixie/textures/*.tif
-%{_mandir}/man1/*.1.bz2
+%{_mandir}/man1/*.1.*
 
 %files -n %{libname}
 %defattr(-,root,root)
