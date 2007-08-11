@@ -5,7 +5,7 @@
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.2.1
+Version:	2.2.2
 Release:	%mkrel 1
 License:	LGPL
 Group:		Graphics
@@ -49,6 +49,8 @@ Pixie header files.
 %build
 %configure2_5x \
 	--enable-openexr-threads \
+	--disable-static-fltk \
+	--disable-selfcontained \
 	--with-shaderdir=%{_datadir}/Pixie/shaders \
 	--with-modeldir=%{_datadir}/Pixie/models \
 	--with-texturesdir=%{_datadir}/Pixie/textures \
