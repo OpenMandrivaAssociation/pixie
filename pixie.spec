@@ -5,9 +5,9 @@
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.2.2
+Version:	2.2.3
 Release:	%mkrel 1
-License:	LGPL
+License:	LGPLv2+
 Group:		Graphics
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
 Url:		http://www.cs.utexas.edu/~okan/Pixie/pixie.htm
