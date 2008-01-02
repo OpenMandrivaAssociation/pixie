@@ -17,6 +17,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	mesa-common-devel
 BuildRequires:	flex
 BuildRequires:	bison
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Pixie is a RenderMan like photorealistic renderer.
