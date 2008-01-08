@@ -17,7 +17,6 @@ BuildRequires:	libtiff-devel
 BuildRequires:	mesa-common-devel
 BuildRequires:	flex
 BuildRequires:	bison
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Pixie is a RenderMan like photorealistic renderer.
@@ -46,6 +45,9 @@ Pixie header files.
 %prep
 %setup -qn %{oname}
 
+# do not link against static libraries
+sed -i.r_static -e 's|--ldstaticflags|--ldflags|' configure
+
 %build
 %configure2_5x \
 	--enable-openexr-threads \
@@ -57,6 +59,10 @@ Pixie header files.
 	--with-displaysdir=%{_libdir}/Pixie/displays \
 	--with-modulesdir=%{_libdir}/Pixie/modules
 
+# do not hardcode rpath
+sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
 %make
 
 %install
@@ -64,6 +70,7 @@ Pixie header files.
 
 %makeinstall_std docdir=%{_docdir}/%{oname}
 
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 mkdir -p %{buildroot}%{_datadir}/Pixie/textures
 cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 
@@ -84,9 +91,7 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %dir %{_datadir}/%{oname}/textures
 #%dir %{_datadir}/%{oname}/procedurals
 %{_bindir}/*
-%{_libdir}/%{oname}/displays/*.la
 %{_libdir}/%{oname}/displays/*.so
-%{_libdir}/%{oname}/modules/*.la
 %{_libdir}/%{oname}/modules/*.so
 %{_datadir}/%{oname}/shaders/*.sdr
 %{_datadir}/%{oname}/shaders/*.sl
@@ -100,5 +105,4 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %files -n %{develname}
 %defattr(-,root,root)
 %{_includedir}/*h
-%{_libdir}/*.la
 %{_libdir}/*.so
