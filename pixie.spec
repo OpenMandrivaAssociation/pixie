@@ -11,6 +11,7 @@ License:	LGPLv2+
 Group:		Graphics
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
 Url:		http://www.cs.utexas.edu/~okan/Pixie/pixie.htm
+Patch0:		Pixie-2.2.3-x8664-asm.patch
 BuildRequires:	libfltk-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	libtiff-devel
@@ -44,6 +45,7 @@ Pixie header files.
 
 %prep
 %setup -qn %{oname}
+%patch0 -p1
 
 # do not link against static libraries
 sed -i.r_static -e 's|--ldstaticflags|--ldflags|' configure
@@ -89,7 +91,6 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %dir %{_libdir}/%{oname}/modules
 %dir %{_datadir}/%{oname}/shaders
 %dir %{_datadir}/%{oname}/textures
-#%dir %{_datadir}/%{oname}/procedurals
 %{_bindir}/*
 %{_libdir}/%{oname}/displays/*.so
 %{_libdir}/%{oname}/modules/*.so
