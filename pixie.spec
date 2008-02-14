@@ -9,6 +9,7 @@ Version:	2.2.3
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphics
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
 Url:		http://www.cs.utexas.edu/~okan/Pixie/pixie.htm
 Patch0:		Pixie-2.2.3-x8664-asm.patch
