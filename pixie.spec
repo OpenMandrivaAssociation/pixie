@@ -77,9 +77,13 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 mkdir -p %{buildroot}%{_datadir}/Pixie/textures
 cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
