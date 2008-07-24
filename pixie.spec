@@ -6,7 +6,7 @@
 Summary:	3D renderer Renderman compliant
 Name:		pixie
 Version:	2.2.3
-Release:	%mkrel 1
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
