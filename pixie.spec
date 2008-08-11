@@ -5,20 +5,20 @@
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.2.3
-Release:	%mkrel 4
+Version:	2.2.4
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphics
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Url:		http://www.renderpixie.com/
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
-Url:		http://www.cs.utexas.edu/~okan/Pixie/pixie.htm
-Patch0:		Pixie-2.2.3-x8664-asm.patch
 BuildRequires:	libfltk-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	mesa-common-devel
 BuildRequires:	flex
 BuildRequires:	bison
+Requires:	%{libname} = %{version}-%{release}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Pixie is a RenderMan like photorealistic renderer.
@@ -27,26 +27,26 @@ useful for graphics research and for people who
 can not afford a commercial renderer.
 
 %package -n %{libname}
-Summary:	Shared libraries for Pixie
+Summary:	Shared libraries for %{oname}
 Group:		System/Libraries
 
 %description -n %{libname}
-Shared libraries for Pixie, a RenderMan 
+Shared libraries for %{oname}, a RenderMan 
 compiliant renderer.
 
 %package -n %{develname}
-Summary:	Pixie development environment
+Summary:	Development files for %{oname}
 Group:		Development/C++
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%mklibname %{name} 0 -d
+Requires:	%{libname} = %{version}-%{release}
+Obsoletes:	%{mklibname %{name} 0 -d} < 2.2.4
 
 %description -n %{develname}
-Pixie header files.
+Development files and headers for %{oname}.
 
 %prep
 %setup -qn %{oname}
-%patch0 -p1
 
 # do not link against static libraries
 sed -i.r_static -e 's|--ldstaticflags|--ldflags|' configure
