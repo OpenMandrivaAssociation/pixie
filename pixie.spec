@@ -11,7 +11,7 @@ License:	LGPLv2+
 Group:		Graphics
 Url:		http://www.renderpixie.com/
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
-BuildRequires:	libfltk-devel
+BuildRequires:	fltk-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	mesa-common-devel
