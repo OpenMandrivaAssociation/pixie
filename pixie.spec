@@ -5,8 +5,8 @@
 
 Summary:	3D renderer Renderman compliant
 Name:		pixie
-Version:	2.2.4
-Release:	%mkrel 2
+Version:	2.2.5
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphics
 Url:		http://www.renderpixie.com/
@@ -52,6 +52,7 @@ Development files and headers for %{oname}.
 sed -i.r_static -e 's|--ldstaticflags|--ldflags|' configure
 
 %build
+%define Werror_cflags %nil
 %configure2_5x \
 	--enable-openexr-threads \
 	--disable-static-fltk \
