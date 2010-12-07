@@ -6,7 +6,7 @@
 Summary:	3D renderer Renderman compliant
 Name:		pixie
 Version:	2.2.6
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		Graphics
 Url:		http://www.renderpixie.com/
