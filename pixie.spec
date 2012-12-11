@@ -6,19 +6,20 @@
 Summary:	3D renderer Renderman compliant
 Name:		pixie
 Version:	2.2.6
-Release:	%mkrel 3
+Release:3
 License:	LGPLv2+
 Group:		Graphics
 Url:		http://www.renderpixie.com/
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
+Patch0:	Pixie-src-2.2.6-zlib-fix.patch
 BuildRequires:	fltk-devel
-BuildRequires:	OpenEXR-devel
-BuildRequires:	libtiff-devel
+BuildRequires:	pkgconfig(OpenEXR)
+BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	mesa-common-devel
 BuildRequires:	flex
 BuildRequires:	bison
 Requires:	%{libname} = %{version}-%{release}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+
 
 %description
 Pixie is a RenderMan like photorealistic renderer.
@@ -47,6 +48,7 @@ Development files and headers for %{oname}.
 
 %prep
 %setup -qn %{oname}
+%patch0 -p0
 
 # do not link against static libraries
 sed -i.r_static -e 's|--ldstaticflags|--ldflags|' configure
@@ -70,27 +72,14 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %makeinstall_std docdir=%{_docdir}/%{oname}
 
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 mkdir -p %{buildroot}%{_datadir}/Pixie/textures
 cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc %{_datadir}/doc/%{oname}/*
 %dir %{_libdir}/%{oname}
 %dir %{_libdir}/%{oname}/displays
@@ -106,10 +95,12 @@ cp -f textures/*.tif %{buildroot}%{_datadir}/Pixie/textures
 %{_mandir}/man1/*.1.*
 
 %files -n %{libname}
-%defattr(-,root,root)
+%doc DEVNOTES ChangeLog COMPILING.txt COPYING
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
+%doc DEVNOTES ChangeLog COMPILING.txt COPYING
 %{_includedir}/*h
 %{_libdir}/*.so
+
+
