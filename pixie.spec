@@ -9,7 +9,7 @@ Version:	2.2.6
 Release:3
 License:	LGPLv2+
 Group:		Graphics
-Url:		http://www.renderpixie.com/
+Url:		https://www.renderpixie.com/
 Source0:	http://downloads.sourceforge.net/pixie/%{oname}-src-%{version}.tgz
 Patch0:	Pixie-src-2.2.6-zlib-fix.patch
 BuildRequires:	fltk-devel
